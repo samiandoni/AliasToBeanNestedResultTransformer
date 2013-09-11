@@ -6,4 +6,10 @@ You can use this class as criteria trnsformer in Hibernate to bind associated be
 Usage Example:
 --------------
 
-> sami
+> class Person {
+>   private Long id;
+>   private String name;
+>   private Car car;
+>   
+>   // getters and setters
+> }
