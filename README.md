@@ -6,3 +6,4 @@ You can use this class as criteria trnsformer in Hibernate to bind associated be
 Usage Example:
 --------------
 
+> sami
