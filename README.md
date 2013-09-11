@@ -21,10 +21,10 @@ Usage Example:
     
     List<Person> getPeople() {
       ProjectionList projections = Projections.projectionList()
-		    .add(Projections.id().as("id"))
-			  .add(Projections.property("name").as("name"))
-			  .add(Projections.property("c.id").as("car.id"))
-			  .add(Projections.property("c.color").as("car.color"));
+		.add(Projections.id().as("id"))
+		.add(Projections.property("name").as("name"))
+		.add(Projections.property("c.id").as("car.id"))
+		.add(Projections.property("c.color").as("car.color"));
     
       Criteria criteria = getCurrentSession().createCriteria(Person.class)
         .createAlias("car", "c")
