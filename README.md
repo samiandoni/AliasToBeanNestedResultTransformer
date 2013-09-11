@@ -31,8 +31,10 @@ Usage Example:
         .setProjection(projections)
         .setResultTransformer(new AliasToBeanNestedResultTransformer(Person.class));
 
-        return (List<Person>) criteria.list();
+      return (List<Person>) criteria.list();
     }
+
+	// each car of Person will be populated
     
 This is working for one-to-one and many-to-one associations (or beans).
 
