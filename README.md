@@ -10,13 +10,13 @@ Usage Example:
       private Long id;
       private String name;
       private Car car;
-    
       // getters and setters
     }
 
     class Car {
       private Long id;
       private String color;
+      // getters and setters
     }
     
     List<Person> getPeople() {
@@ -33,3 +33,7 @@ Usage Example:
 
         return (List<Person>) criteria.list();
     }
+    
+This is working for one-to-one and many-to-one associations (or beans).
+
+We can develop it to include collections and multi-level nested associations.
