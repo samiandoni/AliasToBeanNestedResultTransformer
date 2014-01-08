@@ -57,3 +57,96 @@ Test case
 	    A a = (A)a2b.transformTuple(tuple, aliases);
 	    System.out.println(a);
 	}
+	
+	public class A extends Base{
+		private B b;
+		private C c;
+		
+		public B getB() {
+			return b;
+		}
+	
+		public void setB(B b) {
+			this.b = b;
+		}
+	
+		
+	
+		@Override
+		public String toString() {
+			return String.format("A [b=%s, c=%s]", b, c);
+		}
+	
+		public C getC() {
+			return c;
+		}
+	
+		public void setC(C c) {
+			this.c = c;
+		}
+		
+		
+	}
+	
+	public class B extends Base{
+		private C c;
+	
+		public C getC() {
+			return c;
+		}
+	
+		public void setC(C c) {
+			this.c = c;
+		}
+	
+		@Override
+		public String toString() {
+			return String.format("B [c=%s]", c);
+		}
+		
+	}
+	
+	public class C extends Base{
+		private String c;
+		private A a;
+		public String getC() {
+			return c;
+		}
+	
+		public void setC(String c) {
+			this.c = c;
+		}
+	
+		public A getA() {
+			return a;
+		}
+	
+		public void setA(A a) {
+			this.a = a;
+		}
+	
+		@Override
+		public String toString() {
+			return String.format("C [c=%s, a=%s]", c, a);
+		}
+		
+		
+	}
+	
+	public class Base{
+		private String id;
+	
+		public String getId() {
+			return id;
+		}
+	
+		public void setId(String id) {
+			this.id = id;
+		}
+	
+		@Override
+		public String toString() {
+			return String.format("Base [id=%s]", id);
+		}
+		
+	}
