@@ -42,6 +42,7 @@ public class AliasToBeanNestedResultTransformer extends AliasedTupleSubsetResult
 		try {
 			for (int i = 0; i < aliases.length; i++) {
 				String alias = aliases[i];
+				Boolean hasChild = false;
 				if (alias.contains(".")) {
 					nestedAliases.add(alias);
 					
@@ -56,8 +57,13 @@ public class AliasToBeanNestedResultTransformer extends AliasedTupleSubsetResult
 						list.add(new ArrayList<Object>());
 						list.add(new ArrayList<String>());
 						list.add(fieldName);
+						list.add(hasChild);
 						subclassToAlias.put(subclass, list);
 					}
+					if(sp.length>2){
+	                    aliasName = alias.substring(alias.indexOf(".")+1);
+	                    ((List)subclassToAlias.get(subclass)).set(3,true);
+	                }
 					((List<Object>)subclassToAlias.get(subclass).get(0)).add(tuple[i]);
 					((List<String>)subclassToAlias.get(subclass).get(1)).add(aliasName);
 				}
@@ -80,16 +86,20 @@ public class AliasToBeanNestedResultTransformer extends AliasedTupleSubsetResult
 		
 		ResultTransformer rootTransformer = new AliasToBeanResultTransformer(resultClass);
 		Object root = rootTransformer.transformTuple(newTuple, newAliases);
-		
+		ResultTransformer subclassTransformer = null;
 		for (Class<?> subclass : subclassToAlias.keySet()) {
-			ResultTransformer subclassTransformer = new AliasToBeanResultTransformer(subclass);
-			Object subObject = subclassTransformer.transformTuple(
-					((List<Object>)subclassToAlias.get(subclass).get(0)).toArray(), 
-					((List<Object>)subclassToAlias.get(subclass).get(1)).toArray(new String[0])
-					);
-			
-			PropertyAccessor accessor = PropertyAccessorFactory.getPropertyAccessor("property");
-			accessor.getSetter(resultClass, (String)subclassToAlias.get(subclass).get(2)).set(root, subObject, null);
+			List list = subclassToAlias.get(subclass);
+	        Boolean hasChild = (Boolean) list.get(3);
+	        if(hasChild){
+	            subclassTransformer = new AliasToBeanNestedResultTransformer(subclass);
+	        }else{
+	            subclassTransformer = new AliasToBeanResultTransformer(subclass);
+	        }
+	        List<Object> aliaes= (List<Object>) list.get(1);
+	        Object subObject = subclassTransformer.transformTuple(((List<Object>) list.get(0)).toArray(),
+	                aliaes.toArray(new String[aliaes.size()]));
+	        PropertyAccessor accessor = PropertyAccessorFactory.getPropertyAccessor("property");
+	        accessor.getSetter(resultClass, (String) list.get(2)).set(root, subObject, null);
 		}
 		
 		return root;
