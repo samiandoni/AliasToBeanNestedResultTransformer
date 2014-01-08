@@ -33,7 +33,7 @@ Usage Example:
 		.add(Projections.property("c.id").as("car.id"))
 		.add(Projections.property("c.color").as("car.color"))
 		.add(Projections.property("p.name").as("car.part.name"))
-		.add(Projections.property("p.name").as("car.part.type"));
+		.add(Projections.property("p.type").as("car.part.type"));
     
       Criteria criteria = getCurrentSession().createCriteria(Person.class)
         .createAlias("car", "c")
