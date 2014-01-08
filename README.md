@@ -49,11 +49,11 @@ This is working for one-to-one and many-to-one associations (or beans).
 
 Test case
 ----------
-@Test
-public void testAliasToBeanNestedResultTransformer(){
-    Object[] tuple = new Object[]{"Aid","c2id","bid","cid", "cvalue"};
-    String[] aliases = new String[]{"id","c.id","b.id", "b.c.id", "b.c.c"};
-    AliasToBeanNestedResultTransformer a2b = new AliasToBeanNestedResultTransformer(A.class);
-    A a = (A)a2b.transformTuple(tuple, aliases);
-    System.out.println(a);
-}
+	@Test
+	public void testAliasToBeanNestedResultTransformer(){
+	    Object[] tuple = new Object[]{"Aid","c2id","bid","cid", "cvalue"};
+	    String[] aliases = new String[]{"id","c.id","b.id", "b.c.id", "b.c.c"};
+	    AliasToBeanNestedResultTransformer a2b = new AliasToBeanNestedResultTransformer(A.class);
+	    A a = (A)a2b.transformTuple(tuple, aliases);
+	    System.out.println(a);
+	}
