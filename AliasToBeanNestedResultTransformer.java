@@ -72,7 +72,11 @@ public class AliasToBeanNestedResultTransformer extends AliasedTupleSubsetResult
 		int i = 0;
 		for (int j = 0; j < aliases.length; j++) {
 			if (!nestedAliases.contains(aliases[j])) {
-				newTuple[i] = tuple[j];
+		                if (tuple[j] instanceof Enum) {
+		                    newTuple[i] = ((Enum) tuple[j]).name();
+		                } else {
+		                    newTuple[i] = tuple[j];
+		                }
 				newAliases[i] = aliases[j];
 				++i;
 			}
