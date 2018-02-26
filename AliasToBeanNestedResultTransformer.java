@@ -87,9 +87,9 @@ public class AliasToBeanNestedResultTransformer extends AliasedTupleSubsetResult
 					((List<Object>)subclassToAlias.get(subclass).get(0)).toArray(), 
 					((List<Object>)subclassToAlias.get(subclass).get(1)).toArray(new String[0])
 					);
-			
-			PropertyAccessor accessor = PropertyAccessorFactory.getPropertyAccessor("property");
-			accessor.getSetter(resultClass, (String)subclassToAlias.get(subclass).get(2)).set(root, subObject, null);
+			PropertyAccessStrategy accessor = PropertyAccessStrategyFieldImpl.INSTANCE;
+			PropertyAccess access = accessor.buildPropertyAccess(resultClass, (String) subclassToAlias.get(subclass).get(2));
+			access.getSetter().set(root, subObject, null);
 		}
 		
 		return root;
